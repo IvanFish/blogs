@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	    <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+        <title>Регистрация</title>
+    </head>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h3 class="panel-title">Регистрация</h3>
+  </div>
+  
+    <div class="panel-body">
+    
+ 
+        {% if registered %}
+         <strong>Спасибо за регистрацию!</strong>
+        <a href="/">Вернуться на главную страницу.</a><br />
+        {% else %}
+        
+
+        <form id="user_form" method="post" action="/lbe/register/"
+                enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <!-- Выводим на экран каждую форму. Метод as_p помещает каждый элемент в абзац (тег <p>). Это гарантирует, что каждый элемент появится на новой строке, улучшая внешний вид формы. -->
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+
+            <!-- Создаем кнопку для отправления данных формы. -->
+            
+            <input type="submit" class="btn btn-success" value="Зарегистрироваться"/>
+
+        </form>
+        {% endif %}
+    
+	</div>
+</div>
+</html>
+

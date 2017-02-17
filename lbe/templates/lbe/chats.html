@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	</head>
+	
+	<body>
+		
+    <div class="red" align="center">
+    <h3>Чат</h3>
+    </div>
+    
+    
+    <div id="demo">
+	    {{chats}}
+	        
+    </div>
+    
+    <div class="green" align="center">
+    <h3>Ввод</h3>
+    
+     
+    <form method="POST" class="chat-form">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="button" name="reset_form" value="Сброс"
+    onclick="this.form.reset();">
+    
+    <button type="submit" class="save btn btn-default">Записать</button>
+
+    </form>
+    <button onclick="edit()">Добавить</button>
+    
+    </div>
+      <script>
+	      
+	      function edit()
+{   
+    var p = document.createElement("p");
+    var a = document.forms[0].Author.value;
+    var c = document.forms[0].Text.value;
+    a = a+":  ";
+    var b = a+c;
+    var node = document.createTextNode(b);
+    p.appendChild(node);
+    var div = document.getElementById("demo");
+    div.appendChild(p);
+}
+      </script>
+      
+      </body>
+</html>
+

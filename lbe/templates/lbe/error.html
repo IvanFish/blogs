@@ -1,0 +1,25 @@
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+
+
+
+<div class="jumbotron">
+	<div class="container">
+
+{% block contactform %}
+
+     <h3 class="bg-danger"><span class="glyphicon glyphicon-warning-sign"></span> Пожалуйста, введите корректные имя пользователя и пароль учётной записи. Оба поля могут быть чувствительны к регистру.</h3>
+    
+    <div align="center"><a href="/"><button type="button" class="btn btn-danger">Вернутся на главную</button></a></div>
+  
+{% endblock %}
+
+	</div>
+</div>

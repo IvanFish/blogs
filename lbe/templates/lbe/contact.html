@@ -1,0 +1,77 @@
+
+
+{% load i18n %}
+
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+
+<div class="jumbotron">
+	<div class="container">
+
+
+
+{% block title %}<h2> Обратная связь</h2>{% endblock %}
+
+
+       <script> var a = Math.round(Math.random()*10000);
+	            var b = +prompt("Введите число "+a);
+                if (a == b){
+                alert(" Можете написать письмо");
+                }
+                else {
+                alert("Роботам, вход в почту запрещен");
+                document.location.href = "/";
+                }       
+       </script>
+
+
+{% block contactform %}
+     
+    <h3></h3>
+<form action="{% url 'lbe:contact' %}" method="post">
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+	<div>
+	  <label for="id_subject">Тема:</label>
+	  {{ form.subject.errors }}
+{#	  {{ form.subject }}#}
+       <input class="form-control" id="id_subject" name="subject" placeholder="Тема">
+      
+	</div>
+    &nbsp;
+	<div>
+	  <label for="id_sender">E-mail:</label>
+	  {{ form.sender.errors }}
+{#	  {{ form.sender }}#}
+      <input class="form-control" id="id_sender" name="sender" placeholder="Ваш e-mail">
+      	</div>
+    &nbsp;
+	<div>
+	  <label for="id_message">Сообщение:</label>
+	  {{ form.message.errors }}
+{#	  {{ form.message }}#}
+      <textarea class="form-control" id="id_message" name="message" placeholder="Введите ваше сообщение"></textarea>
+	</div>
+    &nbsp;
+	<div>
+	  {{ form.copy.errors }}
+	  <label for="id_copy">{{ form.copy }} Отправить копию себе </label>
+	</div>
+    <br>
+	<input type="submit" class="btn btn-info" value="Отправить сообщение"/>
+</form>
+ 
+
+{% endblock %}
+
+    </div>
+</div>

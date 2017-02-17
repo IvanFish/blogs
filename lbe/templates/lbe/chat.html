@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+<style>
+.sticky {
+  position: fixed;
+  top: 0px;  /* если ноль заменить на число (и в скрипте тоже), то блок будет прилипать до того, как верхний край окна браузера дойдёт до верхнего края элемента. Может быть отрицательным числом. Применим, например, при фиксированном сверху меню */
+  z-index: 101;
+}
+
+.red { 
+	background: #dddddd;
+    border:inset 2px black;
+    float: left;
+    border-radius: 10px;
+    }   
+.green{
+    background: #dddddd;
+    height: 500px;
+    width: 450px;
+    border: inset 2px black;
+    float: left;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #000;
+ }  
+ 
+ body {
+	 background: #ddd;
+ } 
+  
+
+ </style>
+
+	<body>
+  	
+	
+		
+    <article id="demo" class="red"  align="center">
+    <h2>**********************Добро пожаловать в чат**********************</h2>
+    </article>
+    
+    
+    <aside id="aside1" class="green" align=center>
+    <h3>Ввод</h3>
+    
+     
+    <form method="POST" class="chat-form">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="button" name="reset_form" value="Очистить форму"
+    onclick="this.form.reset();">
+    <button type="submit" class="save btn btn-default">Очистить чат и форму</button>
+     </form>
+    <button onclick="edit()">Добавить в чат</button>
+    </aside>
+    
+    
+  
+  </body>
+<footer></footer>
+
+        
+    <script>
+	    
+	    	function edit()
+{   
+    var p = document.createElement("p");
+    var a = document.forms[0].Author.value;
+    var c = document.forms[0].Text.value;
+    a = a+":   ";
+    var b = a+c;
+    var node = document.createTextNode(b);
+    p.appendChild(node);
+    var div = document.getElementById("demo");
+    div.appendChild(p);
+}
+
+
+	      
+(function(){  // анонимная функция (function(){ })(), чтобы переменные "a" и "b" не стали глобальными
+var a = document.querySelector('#aside1'), b = null;  // селектор блока, который нужно закрепить
+window.addEventListener('scroll', Ascroll, false);
+document.body.addEventListener('scroll', Ascroll, false);  // если у html и body высота равна 100%
+function Ascroll() {
+  if (b == null) {  // добавить потомка-обёртку, чтобы убрать зависимость с соседями
+    var Sa = getComputedStyle(a, ''), s = '';
+    for (var i = 0; i < Sa.length; i++) {  // перечислить стили CSS, которые нужно скопировать с родителя
+      if (Sa[i].indexOf('overflow') == 0 || Sa[i].indexOf('padding') == 0 || Sa[i].indexOf('border') == 0 || Sa[i].indexOf('outline') == 0 || Sa[i].indexOf('box-shadow') == 0 || Sa[i].indexOf('background') == 0) {
+        s += Sa[i] + ': ' +Sa.getPropertyValue(Sa[i]) + '; '
+      }
+    }
+    b = document.createElement('div');  // создать потомка
+    b.style.cssText = s + ' box-sizing: border-box; width: ' + a.offsetWidth + 'px;';
+    a.insertBefore(b, a.firstChild);  // поместить потомка в цепляющийся блок первым
+    var l = a.childNodes.length;
+    for (var i = 1; i < l; i++) {  // переместить во вновь созданного потомка всех остальных потомков (итого: создан потомок-обёртка, внутри которого по прежнему работают скрипты)
+      b.appendChild(a.childNodes[1]);
+    }
+    a.style.height = b.getBoundingClientRect().height + 'px';  // если под скользящим элементом есть другие блоки, можно своё значение
+    a.style.padding = '0';
+    a.style.border = '0';  // если элементу присвоен padding или border
+  }
+  if (a.getBoundingClientRect().top <= 0) { // elem.getBoundingClientRect() возвращает в px координаты элемента относительно верхнего левого угла области просмотра окна браузера
+    b.className = 'sticky';
+  } else {
+    b.className = '';
+  }
+  window.addEventListener('resize', function() {
+    a.children[0].style.width = getComputedStyle(a, '').width
+  }, false);  // если изменить размер окна браузера, измениться ширина элемента
+}
+})()
+</script>
+
+      
+      </body>
+</html>
+
